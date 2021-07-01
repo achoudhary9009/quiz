@@ -9,6 +9,22 @@ case class QuizRequest
   endDate: Date,
   cratedBy: String
 )
+case class QuestionRequest
+(
+  quizId: Long,
+  question: String,
+  optionA: String,
+  optionAFlag: Boolean,
+  optionB: String,
+  optionBFlag: Boolean,
+  optionC: String,
+  optionCFlag: Boolean,
+  optionD: String,
+  optionDFlag: Boolean,
+  cratedBy: String
+
+)
+
 
 case class quiz
 (
@@ -21,4 +37,25 @@ case class quiz
   createdBy: String,
   modifiedOn: Timestamp,
   modifiedBy: String
+)
+
+case class Question
+(
+  id: Long,
+  quizId: Long,
+  question: String,
+  optionA: String,
+  optionAFlag: Boolean,
+  optionB: String,
+  optionBFlag: Boolean,
+  optionC: String,
+  optionCFlag: Boolean,
+  optionD: String,
+  optionDFlag: Boolean,
+  activeFlag: Boolean,
+  createdOn: Timestamp,
+  createdBy: String,
+  modifiedOn: Timestamp,
+  modifiedBy: String
+
 )

@@ -10,6 +10,13 @@ abstract class CustomHttpResponse
   queryResult: Any
 )
 
+abstract class CustomHttpMessageResponse
+(
+  code: String,
+  message: String
+)
+
+
 
 //Case class for all quiz response
 case class AllQuizHttpResponse
@@ -20,5 +27,5 @@ case class QuizQuestionsHttpResponse
 (code: String,message: String, queryResult: Vector[QuizQuestionsResponse]) extends CustomHttpResponse(code,message,queryResult)
 
 //Case class for integer response
-case class LongHttpResponse
-(code: String,message: String, queryResult: Long) extends CustomHttpResponse(code,message,queryResult)
+case class HttpMessageResponse
+(code: String,message: String) extends CustomHttpMessageResponse(code,message)
