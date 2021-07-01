@@ -18,3 +18,7 @@ case class AllQuizHttpResponse
 //Case class for all questions by quiz response
 case class QuizQuestionsHttpResponse
 (code: String,message: String, queryResult: Vector[QuizQuestionsResponse]) extends CustomHttpResponse(code,message,queryResult)
+
+//Case class for integer response
+case class LongHttpResponse
+(code: String,message: String, queryResult: Long) extends CustomHttpResponse(code,message,queryResult)

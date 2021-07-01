@@ -7,7 +7,7 @@ case class QuizResponse
   id: Long,
   name: String,
   startDate: Date,
-  endDate: Date,
+  endDate: Date
 )
 case class QuizQuestionsResponse
 (

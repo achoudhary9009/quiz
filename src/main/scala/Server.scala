@@ -1,4 +1,5 @@
 
+import admin.AdminRoutes
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import com.typesafe.config.ConfigFactory
@@ -17,7 +18,8 @@ object Server extends ActorSupport {
 
     def routes = pathPrefix("api"){
 
-      UserRoutes.route
+      UserRoutes.route ~
+      AdminRoutes.route
     }
 
     val bindingFuture = Http().bindAndHandle(routes, host, port)
