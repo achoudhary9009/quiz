@@ -1,28 +1,23 @@
 
-import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
-import akka.stream.ActorMaterializer
 import com.typesafe.config.ConfigFactory
+import user.UserRoutes
+import utils.ActorSupport
 
 import scala.io.StdIn
 
-object Server {
+object Server extends ActorSupport {
   def main(args: Array[String]): Unit = {
-
-    implicit val system = ActorSystem("Riverus-riauth-api")
-    implicit val materializer = ActorMaterializer()
-    // needed for the future flatMap/onComplete in the end
-    implicit val executionContext = system.dispatcher
 
 
     implicit val config = ConfigFactory.load()
     val host = config.getString("http.ip")
     val port = config.getInt("http.port")
 
-    def routes = pathPrefix("api"/"quiz"){
+    def routes = pathPrefix("api"){
 
-      complete("test.")
+      UserRoutes.route
     }
 
     val bindingFuture = Http().bindAndHandle(routes, host, port)
