@@ -33,7 +33,7 @@ class QuestionTable(tag: Tag) extends Table[Question](tag, Some("quiz"), "quiz_q
 
 object QuestionDAO {
 
-  lazy val licenseTableObj = TableQuery[QuestionTable]
+  lazy val QuestionTableObj = TableQuery[QuestionTable]
 
   /*def insertQuestion(email: String,quizId: Long,question: String,optionA: String,optionAFlag: Boolean,optionB: String,optionBFlag: Boolean,optionC: String,optionCFlag: Boolean,optionD: String,optionDFlag: Boolean) = {
     val action = licenseTableObj.map(m => (m.quizId,m.question,m.optionA,m.optionAFlag,m.optionB,m.optionBFlag,m.optionC,m.optionCFlag,m.optionD,m.optionDFlag, m.activeFlag, m.createdOn, m.createdBy)) returning licenseTableObj.map( _.id) += (quizId,question,optionA,optionAFlag,optionB,optionBFlag,optionC,optionCFlag,optionD,optionDFlag,true,Timestamp.from(Instant.now()),email)
@@ -46,9 +46,18 @@ object QuestionDAO {
       (que.quizId,que.question,que.optionA,que.optionAFlag,que.optionB,que.optionBFlag,que.optionC,que.optionCFlag,que.optionD,que.optionDFlag,true,Timestamp.from(Instant.now()),que.cratedBy)
     }
 
-    val action = licenseTableObj.map(m => (m.quizId,m.question,m.optionA,m.optionAFlag,m.optionB,m.optionBFlag,m.optionC,m.optionCFlag,m.optionD,m.optionDFlag, m.activeFlag, m.createdOn, m.createdBy)) returning licenseTableObj.map( _.id)  ++= questionSet
+    val action = QuestionTableObj.map(m => (m.quizId,m.question,m.optionA,m.optionAFlag,m.optionB,m.optionBFlag,m.optionC,m.optionCFlag,m.optionD,m.optionDFlag, m.activeFlag, m.createdOn, m.createdBy)) returning QuestionTableObj.map( _.id)  ++= questionSet
     PostgresSupport.db.run(action)
   }
+
+
+  def getQuestionByQuizIs(quizId: Long) = {
+
+    val action = QuestionTableObj.filter(m => m.quizId === quizId && m.activeFlag === true).map(m => (m.quizId,m.id,m.optionA,m.optionAFlag,m.optionB,m.optionBFlag,m.optionC,m.optionCFlag,m.optionD,m.optionDFlag)).result
+    PostgresSupport.db.run(action)
+  }
+
+
 
 
 }

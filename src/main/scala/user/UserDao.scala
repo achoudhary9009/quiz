@@ -23,4 +23,5 @@ object UserDao {
 
     PostgresSupport.db.run(query)
   }
+
 }

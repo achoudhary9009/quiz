@@ -25,11 +25,11 @@ class QuizTable(tag: Tag) extends Table[quiz](tag, Some("quiz"), "quiz") {
 
 object QuizDAO {
 
-  lazy val licenseTableObj = TableQuery[QuizTable]
+  lazy val QuizTableObj = TableQuery[QuizTable]
 
 
   def insertQuiz(email: String,name: String,startDate: Date,endDate: Date) = {
-    val action = licenseTableObj.map(m => (m.name,m.startDate,m.endDate, m.activeFlag, m.createdOn, m.createdBy)) returning licenseTableObj.map( _.id) += (name,startDate,endDate,true,Timestamp.from(Instant.now()),email)
+    val action = QuizTableObj.map(m => (m.name,m.startDate,m.endDate, m.activeFlag, m.createdOn, m.createdBy)) returning QuizTableObj.map( _.id) += (name,startDate,endDate,true,Timestamp.from(Instant.now()),email)
     PostgresSupport.db.run(action)
   }
 
