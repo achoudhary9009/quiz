@@ -18,7 +18,7 @@ object UserRoutes extends ActorSupport with CirceJsonSupport {
           get{
             parameter('email.as[String]){(email) =>
               complete(UserDao.getAllQuiz(email).map{returnVal =>
-                HttpResponse(StatusCodes.OK, entity = new AllQuizHttpResponse("Sucess","Result Generated",returnVal).asJson.toString)
+                HttpResponse(StatusCodes.OK, entity = new AllQuizHttpResponse("Success","Result Generated",returnVal).asJson.toString)
               })
             }
           }
@@ -27,7 +27,7 @@ object UserRoutes extends ActorSupport with CirceJsonSupport {
           get{
             parameters('email.as[String],'quizid.as[Long]){(email,quizId) =>
               complete(UserDao.getQuestionsByQuizId(email,quizId).map{returnVal =>
-                HttpResponse(StatusCodes.OK, entity = new QuizQuestionsHttpResponse("Sucess","Result Generated",returnVal).asJson.toString)
+                HttpResponse(StatusCodes.OK, entity = new QuizQuestionsHttpResponse("Success","Result Generated",returnVal).asJson.toString)
               })
             }
           }
@@ -48,16 +48,25 @@ object UserRoutes extends ActorSupport with CirceJsonSupport {
                     }
                     AnswerDAO.insertAnswers(result,email)
                   }.flatten.map{m =>
-                    HttpResponse(StatusCodes.OK, entity = new HttpMessageResponse("Success","Aswers Submited Successfully").asJson.toString)
+                    HttpResponse(StatusCodes.OK, entity = new HttpMessageResponse("Success","Answer submitted Successfully").asJson.toString)
                   }
                 )
               }
             }
           }
+        }~
+        path("result"){
+          get{
+            parameters('email.as[String]){(email) =>
+
+              complete(
+                UserDao.getQuizResults(email).map{returnVal =>
+                  HttpResponse(StatusCodes.OK, entity = new QuizRResultHttpResponse("Success","Result Generated",returnVal).asJson.toString)
+                }
+              )
+            }
+          }
         }
-
-
-
 
 
       }

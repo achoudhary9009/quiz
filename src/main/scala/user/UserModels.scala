@@ -47,3 +47,12 @@ case class Answer
   modifiedBy: String
 
 )
+
+case class QuizResultResponse
+(
+  quizId: Long,
+  name: String,
+  totalQuestions: Long,
+  attendedQuestions: Long,
+  result: Double
+)

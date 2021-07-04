@@ -24,4 +24,19 @@ object UserDao {
     PostgresSupport.db.run(query)
   }
 
+  implicit val getQuizResultResponseJson = GetResult(r => QuizResultResponse(r.<<,r.<<,r.<<,r.<<,r.<<))
+  def getQuizResults(email: String)={
+
+    val query = sql"""select q.id,q.name,count(distinct qq.id) as question,count(distinct qa.id) as attended,
+                      (count(case when qa.result = true then 1 else null end)*100)/count(qq.id)::float as result
+                      from quiz.quiz q
+                      join quiz.quiz_question qq on qq.quiz_id = q.id and qq.activeflag = true
+                      join quiz.user_question_answer qa on qa.question_id = qq.id and qa.activeflag = true
+                      where qa.email = '#${email}'
+                      group by q.id,q.name
+                      order by q.id asc
+                """.stripMargin.as[QuizResultResponse]
+    PostgresSupport.db.run(query)
+  }
+
 }

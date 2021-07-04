@@ -1,6 +1,6 @@
 package utils
 
-import user.{QuizQuestionsResponse, QuizResponse}
+import user.{QuizQuestionsResponse, QuizResultResponse, QuizResponse}
 
 //custom response case class
 abstract class CustomHttpResponse
@@ -25,6 +25,9 @@ case class AllQuizHttpResponse
 //Case class for all questions by quiz response
 case class QuizQuestionsHttpResponse
 (code: String,message: String, queryResult: Vector[QuizQuestionsResponse]) extends CustomHttpResponse(code,message,queryResult)
+//Case class for all questions by quiz response
+case class QuizRResultHttpResponse
+(code: String,message: String, queryResult: Vector[QuizResultResponse]) extends CustomHttpResponse(code,message,queryResult)
 
 //Case class for integer response
 case class HttpMessageResponse
