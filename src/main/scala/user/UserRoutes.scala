@@ -36,43 +36,21 @@ object UserRoutes extends ActorSupport with CirceJsonSupport {
           post{
             parameters('email.as[String],'quizid.as[Long]){(email,quizId)=>
               entity(as[Array[AnswerReceive]]){obj =>
-
-
-
                 complete(
                   QuestionDAO.getQuestionByQuizIs(quizId).map{questions =>
                     val result = obj.map{answer =>
-
-
-
                       val question = questions.find(q => q._2 == answer.questionId).get
-
                       if(question._4 == answer.optionA && question._6 == answer.optionB && question._8 == answer.optionC && question._10 == answer.optionD ){
                         AnswerReceive(answer.questionId,answer.optionA,answer.optionB,answer.optionC,answer.optionD,Some(true))
                       }else{
                         AnswerReceive(answer.questionId,answer.optionA,answer.optionB,answer.optionC,answer.optionD,Some(false))
                       }
-
-
                     }
-
-
                     AnswerDAO.insertAnswers(result,email)
-
-
-
                   }.flatten.map{m =>
-                    HttpResponse(StatusCodes.OK, entity = new HttpMessageResponse("Success","Result Generated").asJson.toString)
+                    HttpResponse(StatusCodes.OK, entity = new HttpMessageResponse("Success","Aswers Submited Successfully").asJson.toString)
                   }
                 )
-
-
-
-
-
-
-
-
               }
             }
           }

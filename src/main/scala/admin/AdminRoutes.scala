@@ -17,7 +17,7 @@ object AdminRoutes extends ActorSupport with CirceJsonSupport {
           post{
             entity(as[QuizRequest]){obj =>
               complete(QuizDAO.insertQuiz(obj.cratedBy,obj.name,obj.startDate,obj.endDate).map{returnVal =>
-                HttpResponse(StatusCodes.OK, entity = new HttpMessageResponse("Success","Result Generated").asJson.toString)
+                HttpResponse(StatusCodes.OK, entity = new HttpMessageResponse("Success","Quiz Generated Successfully").asJson.toString)
               })
             }
           }
@@ -27,7 +27,7 @@ object AdminRoutes extends ActorSupport with CirceJsonSupport {
             entity(as[Array[QuestionRequest]]){obj =>
 
               complete(QuestionDAO.insertQuestion(obj).map{returnVal =>
-                HttpResponse(StatusCodes.OK, entity = new HttpMessageResponse("Success","Result Generated").asJson.toString)
+                HttpResponse(StatusCodes.OK, entity = new HttpMessageResponse("Success","Questions Added Successfully").asJson.toString)
               })
 
 
